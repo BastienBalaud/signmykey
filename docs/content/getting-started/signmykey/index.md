@@ -10,11 +10,22 @@ echo "deb https://apt.signmykey.io/ stable main" > /etc/apt/sources.list.d/signm
 curl https://gpg.signmykey.io/signmykey.pub | apt-key add -
 ``` 
 
+On CentOS 7+, add signmykey repository
+```
+echo "[signmykey]
+baseurl = https://rpm.signmykey.io/
+name = Signmykey 
+enabled = 1">> /etc/yum.repos.d/signmykey.repo
+```
+
 Then 
 
 ```sh
 useradd --no-create-home -s /bin/false signmykey
+## On Ubuntu
 apt update && apt install signmykey
+## On Centos
+yum install signmykey
 wget https://gitlab.com/signmykey/signmykey/raw/master/signmykey.service -O /etc/systemd/system/signmykey.service
 systemctl enable signmykey.service
 ``` 
